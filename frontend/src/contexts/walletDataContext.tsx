@@ -51,26 +51,48 @@ export const WalletDataProvider = ({
   );
 
   const fetchTransfers = useCallback(async () => {
-    const ts = await contract?.getTransfers();
+    try {
+      const ts = await contract?.getTransfers();
+      const reversed = ts.slice().reverse();
 
-    const reversed = ts.slice().reverse()
-    setTransfers(reversed);
+      setTransfers(reversed);
+    } catch (err) {
+      console.error(err);
+    }
   }, [contract]);
 
   const fetchApprovers = useCallback(async () => {
-    const a = await contract?.getApprovers();
-    setApprovers(a);
+    try {
+      const a = await contract?.getApprovers();
+
+      setApprovers(a);
+    } catch (err) {
+      console.error(err);
+    }
   }, [contract]);
 
   const fetchQuorum = useCallback(async () => {
-    const q = await contract?.quorum();
-    setQuorum(q.toString());
+    try {
+      const q = await contract?.quorum();
+
+      setQuorum(q.toString());
+    } catch (err) {
+      console.error(err);
+    }
   }, [contract]);
 
   const fetchApprovals = useCallback(
     async (address: string, transferId: string) => {
-      const aps = await contract?.approvals(address, transferId);
-      setApprovals((s) => ({ ...s, [transferId]: aps }));
+      try {
+        const aps = await contract?.approvals(address, transferId);
+
+        setApprovals((s) => ({ ...s, [transferId]: aps }));
+      } catch (err) {
+        console.error(
+          `Failed fetch approvals for address ${address} transfer ${transferId}`
+        );
+        console.error(err);
+      }
     },
     [contract]
   );

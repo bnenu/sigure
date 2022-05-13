@@ -3,9 +3,6 @@ import { ethers } from "ethers";
 import WalletArtifact from "../contracts/Wallet.json";
 import contractAddress from "../contracts/contract-address.json";
 
-const TESTNET = "https://rpc-mumbai.matic.today";
-const MAINNET = "https://polygon-rpc.com/";
-
 export type ContractContextValue = {
   contract: Record<string, any> | null;
   provider: Record<string, any> | null;
@@ -41,10 +38,22 @@ export function useContract() {
 
 const getProvider = () => {
   let provider;
-  if (process.env.ENVIRONMENT === "testnet") {
-    provider = new ethers.providers.JsonRpcProvider(TESTNET);
-  } else if (process.env.ENVIRONMENT === "mainnet") {
-    provider = new ethers.providers.JsonRpcProvider(MAINNET);
+
+  console.info(`Deploy env ${process.env.REACT_APP_ENVIRONMENT}`);
+
+  if (process.env.REACT_APP_ENVIRONMENT === "rinkeby") {
+    provider = new ethers.providers.InfuraProvider(
+      "rinkeby",
+      process.env.REACT_APP_INFURA_API_KEY
+    );
+  } else if (process.env.REACT_APP_ENVIRONMENT === "mumbai") {
+    provider = new ethers.providers.JsonRpcProvider(
+      process.env.REACT_APP_MUMBAI
+    );
+  } else if (process.env.REACT_APP_ENVIRONMENT === "polygon") {
+    provider = new ethers.providers.JsonRpcProvider(
+      process.env.REACT_APP_POLYGON
+    );
   } else {
     provider = new ethers.providers.JsonRpcProvider();
   }

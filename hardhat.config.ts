@@ -28,12 +28,19 @@ const config: HardhatUserConfig = {
   solidity: "0.8.13",
   networks: {
     hardhat: {
-      chainId: 1337
+      chainId: 1337,
     },
     ropsten: {
       url: process.env.ROPSTEN_URL || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
+    rinkeby: {
+      url: process.env.RINKEBY_URL || "",
+      accounts:
+        process.env.PK1 !== undefined && process.env.PK2 && process.env.PK3
+          ? [process.env.PK1, process.env.PK2, process.env.PK3]
+          : [],
     },
   },
   gasReporter: {

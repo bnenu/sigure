@@ -3,8 +3,6 @@ import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import WalletConnetProvider from "@walletconnect/web3-provider";
 
-const INFURA_PROJECT_ID = "ed30e1100dbb44db829efc2ab4c4ab4d";
-
 export type Account = string | null;
 export type AccountWeb3Provider = any | null;
 export type AccountContextValue = {
@@ -35,7 +33,7 @@ export const AccountProvider = ({
         walletconnect: {
           package: WalletConnetProvider,
           options: {
-            infuraId: INFURA_PROJECT_ID,
+            infuraId: process.env.REACT_APP_INFURA_PROJECT_ID,
           },
         },
       },

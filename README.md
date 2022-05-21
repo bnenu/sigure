@@ -1,7 +1,7 @@
 # Multi sig wallet dapp starter
 
 This project is built to serve as a starter for a multi sig wallet
-descentralized application.
+descentralized application. The project was built following the course **6-Figure Blockchain Developer** from [EatTheBlocks](https://eattheblocks.com)
 
 It includes the wallet contract, scripts to run and deploy local or on testnets and a basic front-end app that connects to the contract.
 

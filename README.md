@@ -1,10 +1,86 @@
-# Advanced Sample Hardhat Project
+# Multi sig wallet dapp starter
 
-This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
+This project is built to serve as a starter for a multi sig wallet
+descentralized application.
 
-The project comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts. It also comes with a variety of other tools, preconfigured to work with the project code.
+It includes the wallet contract, scripts to run and deploy local or on testnets and a basic front-end app that connects to the contract.
 
-Try running some of the following tasks:
+The stack used `Solidity`, `Typescript`, `Hardhat`, `EthersJS`, `React` (create-react-app), `TailwindCSS`
+
+## Local development
+
+Clone the project locally and `cd` in the created directory
+
+
+#### Install dependencies
+```
+npm install
+```
+
+#### Start local development blockchain
+```
+npx hardhat node
+
+```
+
+#### Deploy contract locally
+In another teminal window
+```
+npm run localDeploy
+```
+Contract is deployed by the first account created by Hardhat and with 3 signers
+- the first three accounts created by Hardhat. Connect one of these accounts to
+  your Metamask wallet to test it in front-end.
+
+
+#### Deploy contract on testnets
+
+Create a `.env` file based on the 'env.example' and provide the netwrok url
+(usually provided by INFURA or other provider) and 3 private keys for the
+wallets whcih will be used as signers when contract is deployed.
+
+```
+npm run deploy -- --<network>
+```
+(Ex: `npm run deploy -- --rinkeby`)
+Requires provision of the owner and signer addresses for the target network.
+Only tested on `rinkeby` but also set up to support `mumbai`.
+
+#### Run tests
+```
+npm run test
+```
+
+### Frontend development
+
+#### Install dependencies and setup
+```
+cd frontend
+npm install
+```
+
+Create a `.env` file based on the provided example (`env.example`) and set `REACT_APP_ENVIRONMENT` value to `"local"` to connect to local chain or `<testnet>` if you have the contract deployed to one of the networks. (currently supported by the scripts `rinkeby` and `mumbai`)
+Also currently requires an INFURA project to connect to testnets and wallet.
+
+
+#### Start development server
+```
+npm start
+```
+Open `http://localhost:3000` in browser
+
+
+#### Build frontend
+```
+npm run build
+```
+
+#### Run tests in frontend
+```
+npm test
+```
+
+### Other Hardhat commands
 
 ```shell
 npx hardhat accounts
